@@ -1,0 +1,9 @@
+.folder {
+  padding: 1em 2em;
+  /* border: 1px solid gray; */
+  cursor: pointer;
+}
+.folder span,
+.folder button {
+  margin-left: 1em;
+}
