@@ -27,6 +27,7 @@
     [x] Delete from collection
             * Have to clear from ui
             * Remove Children Reference from Parent
+                * Patch method to update children
 
 ## Hosting
 
