@@ -21,7 +21,8 @@
 
     [x] Folder Structure
     [x] Database connection
-    [ ] Add Modal
-    [ ] Delete Modal
+    [x] Add Modal
+    [x] Delete Modal
     [ ] Insert to database
-    [ ] Delete from collection
+    [x] Delete from collection
+            * Have to clear ui

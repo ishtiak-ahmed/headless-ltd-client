@@ -55,7 +55,7 @@ const Folder = ({ id }) => {
             }
             {
                 deleteStatus ?
-                    <DeleteFolder setDeleteStatus={setDeleteStatus}></DeleteFolder>
+                    <DeleteFolder folderData={folderData} setDeleteStatus={setDeleteStatus}></DeleteFolder>
                     : <></>
             }
 
