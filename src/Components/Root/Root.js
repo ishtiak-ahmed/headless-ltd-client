@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import Folder from './Folder/Folder';
 
 const Root = () => {
-    const [child, setChild] = useState([])
+    const [folder, serFolder] = useState({})
+
     useEffect(() => {
-        setChild([{ id: 'Folder 1', children: [{ id: 'Grand child', children: [{ id: 'Great Grandchild', children: [] }] }] }])
+        fetch('http://localhost:1606/folder/root')
+            .then(res => res.json())
+            .then(data => serFolder(data))
+
     }, [])
     return (
         <div>
-            <h1>Root:</h1>
-            <Folder name='My Folder' child={child}></Folder>
+            <Folder id={folder._id}></Folder>
         </div>
     );
 };
