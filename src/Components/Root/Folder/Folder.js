@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from 'react';
+import AddFolder from '../AddFolder/AddFolder';
+import DeleteFolder from '../DeleteFolder/DeleteFolder';
 
 const Folder = ({ id }) => {
+    const [addStatus, setAddStaus] = useState(false)
+    const [deleteStatus, setDeleteStatus] = useState(false)
     const [showChild, setShowChild] = useState(false)
     const toggleFolder = () => {
         setShowChild(!showChild)
     }
     // const [children, setChildren] = useState([])
-    const [folder, setFolder] = useState({})
+    const [folderData, setFolderData] = useState({})
     useEffect(() => {
         fetch(`http://localhost:1606/folder/${id}`)
             .then(res => res.json())
-            .then(data => setFolder(data))
+            .then(data => setFolderData(data))
     }, [id])
 
     // Handler Function
     const addFolder = () => {
-        alert('Adding new Folder');
+        setAddStaus(true)
     };
     const deleteFolder = () => {
-        alert('delete folder');
+        setDeleteStatus(true)
     }
     return (
         <div className='folder-area'>
             <div className="folder">
                 <span>{showChild ? <span className='arrow-down'></span> : <span className='arrow-left'></span>}</span>
-                <span onClick={toggleFolder}>{folder.name} {folder.length}</span>
+                <span onClick={toggleFolder}>{folderData.name} {folderData.length}</span>
                 {
-                    folder.name !== 'Root' ?
+                    folderData.name !== 'Root' ?
                         <button onClick={deleteFolder}>X</button>
                         : <></>
                 }
@@ -35,15 +39,25 @@ const Folder = ({ id }) => {
                     showChild ?
                         <div className="folder">
                             {
-                                folder.children.length
+                                folderData.children.length
                                     ?
-                                    folder.children.map(child => <Folder name={child} id={child}></Folder>)
+                                    folderData.children.map(child => <Folder key={child} name={child} id={child}></Folder>)
                                     : <div className="no-folder"><span>-No Folder</span></div>
                             }
                         </div>
                         : <></>
                 }
             </div>
+            {
+                addStatus ?
+                    <AddFolder setAddStatus={setAddStaus} parent={folderData}></AddFolder>
+                    : <></>
+            }
+            {
+                deleteStatus ?
+                    <DeleteFolder setDeleteStatus={setDeleteStatus}></DeleteFolder>
+                    : <></>
+            }
 
         </div>
     );

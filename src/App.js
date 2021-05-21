@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import Root from './Components/Root/Root';
 
 function App() {

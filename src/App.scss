@@ -1,0 +1,60 @@
+#root {
+  padding: 2em;
+}
+
+.folder {
+  padding: 1em 2em;
+  cursor: pointer;
+}
+.no-folder {
+  padding: 0 3em;
+  margin: 0;
+}
+.folder span,
+.folder button {
+  margin-left: 1em;
+}
+.modal-area {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  .modal {
+    min-width: 300px;
+    height: 200px;
+    background-color: #fff;
+    padding: 2em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
+    border-radius: 5px;
+    input {
+      padding: 5px 1em;
+      border-radius: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      outline: none;
+    }
+    button {
+      padding: 10px 2em;
+      border-radius: 5px;
+      outline: none;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+
+.arrow-left::before {
+  content: "\25B6";
+  padding-right: 10px;
+}
+.arrow-down::before {
+  content: "\25B6";
+  color: gray;
+  padding-right: 10px;
+  display: inline-block;
+  transform: rotate(90deg);
+}

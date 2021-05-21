@@ -16,3 +16,12 @@
         Remove it from parents reference
     * Folder Clicked
         Show/Hide Children
+
+## Work Plan -
+
+    [x] Folder Structure
+    [x] Database connection
+    [ ] Add Modal
+    [ ] Delete Modal
+    [ ] Insert to database
+    [ ] Delete from collection
