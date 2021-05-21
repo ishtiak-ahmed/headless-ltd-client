@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DeleteFolder = ({ setDeleteStatus, folderData }) => {
+const DeleteFolder = ({ deleteOne, setDeleteStatus, folderData }) => {
     console.log(folderData)
     const cancelDelete = () => {
         setDeleteStatus(false)
@@ -9,12 +9,7 @@ const DeleteFolder = ({ setDeleteStatus, folderData }) => {
         deleteOne(folderData._id)
         setDeleteStatus(false)
     }
-    const deleteOne = (id) => {
-        const uri = `http://localhost:1606/delete/${id}`;
-        fetch(uri, { method: "DELETE" })
-            .then(res => res.json())
-            .then(result => console.log(result))
-    }
+
     return (
         <div className='modal-area'>
             <div className="modal">

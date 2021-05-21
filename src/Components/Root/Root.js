@@ -5,7 +5,7 @@ const Root = () => {
     const [folder, serFolder] = useState({})
 
     useEffect(() => {
-        fetch('http://localhost:1606/folder/root')
+        fetch('https://tree-folder-structure.herokuapp.com/folder/root')
             .then(res => res.json())
             .then(data => serFolder(data))
 

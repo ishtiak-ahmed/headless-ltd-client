@@ -25,4 +25,11 @@
     [x] Delete Modal
     [ ] Insert to database
     [x] Delete from collection
-            * Have to clear ui
+            * Have to clear from ui
+            * Remove Children Reference from Parent
+
+## Hosting
+
+    [x] Firebase Hosting
+    [x] Heroku Server Hosting
+    [ ] Netlify Hosting (optional)

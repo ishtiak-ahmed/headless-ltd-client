@@ -12,7 +12,7 @@ const Folder = ({ id }) => {
     // const [children, setChildren] = useState([])
     const [folderData, setFolderData] = useState({})
     useEffect(() => {
-        fetch(`http://localhost:1606/folder/${id}`)
+        fetch(`https://tree-folder-structure.herokuapp.com/folder/${id}`)
             .then(res => res.json())
             .then(data => setFolderData(data))
     }, [id])
@@ -23,6 +23,12 @@ const Folder = ({ id }) => {
     };
     const deleteFolder = () => {
         setDeleteStatus(true)
+    }
+    const deleteOne = (id) => {
+        const uri = `https://tree-folder-structure.herokuapp.com/delete/${id}`;
+        fetch(uri, { method: "DELETE" })
+            .then(res => res.json())
+            .then(result => console.log(result))
     }
     return (
         <div className='folder-area'>
@@ -55,7 +61,7 @@ const Folder = ({ id }) => {
             }
             {
                 deleteStatus ?
-                    <DeleteFolder folderData={folderData} setDeleteStatus={setDeleteStatus}></DeleteFolder>
+                    <DeleteFolder deleteOne={deleteOne} folderData={folderData} setDeleteStatus={setDeleteStatus}></DeleteFolder>
                     : <></>
             }
 
