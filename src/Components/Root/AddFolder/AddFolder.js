@@ -11,6 +11,7 @@ const AddFolder = ({ parent, setAddStatus, handleAddFolder }) => {
     const handleAdd = () => {
         handleAddFolder(parent, folderName)
     }
+
     return (
         <div className='modal-area'>
             <div className="modal">
