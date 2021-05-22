@@ -11,9 +11,9 @@ const Root = () => {
 
     }, [])
     return (
-        <div>
+        <>
             <Folder id={folder._id}></Folder>
-        </div>
+        </>
     );
 };
 

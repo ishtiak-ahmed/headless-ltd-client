@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #root {
   padding: 2em;
 }
@@ -25,7 +31,6 @@
   place-items: center;
   .modal {
     min-width: 300px;
-    height: 200px;
     background-color: #fff;
     padding: 2em;
     display: grid;
@@ -46,6 +51,10 @@
       cursor: pointer;
     }
   }
+}
+
+button + button {
+  margin-right: 1em;
 }
 
 .arrow-left::before {

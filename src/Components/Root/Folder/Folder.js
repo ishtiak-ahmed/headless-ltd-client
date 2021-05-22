@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AddFolder from '../AddFolder/AddFolder';
 import DeleteFolder from '../DeleteFolder/DeleteFolder';
 
-const Folder = ({ id }) => {
+const Folder = ({ id, parentId }) => {
     const [addStatus, setAddStaus] = useState(false)
     const [deleteStatus, setDeleteStatus] = useState(false)
     const [showChild, setShowChild] = useState(false)
@@ -24,17 +24,45 @@ const Folder = ({ id }) => {
     const deleteFolder = () => {
         setDeleteStatus(true)
     }
-    const deleteOne = (id) => {
+    const updateParent = (parent) => {
+        fetch(`https://tree-folder-structure.herokuapp.com/folder/${parent}`)
+            .then(res => res.json())
+            .then(data => {
+                const childs = data.children;
+                const newChilds = childs.filter(child => child !== id)
+                fetch(`https://tree-folder-structure.herokuapp.com/updateparent/${parent}`, {
+                    method: 'PATCH',
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({ childs: newChilds })
+                })
+                    .then(response => response.json())
+                    .then(res => {
+                        if (res) {
+                            window.location.reload()
+                        } else {
+                            alert('something went wrong')
+                        }
+                    })
+            })
+    }
+    const deleteOne = (parent, id) => {
         const uri = `https://tree-folder-structure.herokuapp.com/delete/${id}`;
         fetch(uri, { method: "DELETE" })
             .then(res => res.json())
-            .then(result => console.log(result))
+            .then(result => {
+                if (result) {
+                    updateParent(parent)
+                }
+                else (
+                    alert('Delete failed')
+                )
+            })
     }
     return (
         <div className='folder-area'>
             <div className="folder">
                 <span>{showChild ? <span className='arrow-down'></span> : <span className='arrow-left'></span>}</span>
-                <span onClick={toggleFolder}>{folderData.name} {folderData.length}</span>
+                <span onClick={toggleFolder}>{folderData.name}</span>
                 {
                     folderData.name !== 'Root' ?
                         <button onClick={deleteFolder}>X</button>
@@ -47,7 +75,7 @@ const Folder = ({ id }) => {
                             {
                                 folderData.children.length
                                     ?
-                                    folderData.children.map(child => <Folder key={child} name={child} id={child}></Folder>)
+                                    folderData.children.map(child => <Folder key={child} parentId={folderData._id} id={child}></Folder>)
                                     : <div className="no-folder"><span>-No Folder</span></div>
                             }
                         </div>
@@ -61,7 +89,7 @@ const Folder = ({ id }) => {
             }
             {
                 deleteStatus ?
-                    <DeleteFolder deleteOne={deleteOne} folderData={folderData} setDeleteStatus={setDeleteStatus}></DeleteFolder>
+                    <DeleteFolder deleteOne={deleteOne} folderData={folderData} parent={parentId} setDeleteStatus={setDeleteStatus}></DeleteFolder>
                     : <></>
             }
 

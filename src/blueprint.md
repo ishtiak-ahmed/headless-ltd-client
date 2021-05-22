@@ -24,10 +24,12 @@
     [x] Add Modal
     [x] Delete Modal
     [ ] Insert to database
+            * Child item added
+            x Need to add reference to parent with patch method
     [x] Delete from collection
-            * Have to clear from ui
-            * Remove Children Reference from Parent
-                * Patch method to update children
+            [x] Have to clear from ui
+            [x] Remove Children Reference from Parent
+                [x] Patch method to update children
 
 ## Hosting
 
