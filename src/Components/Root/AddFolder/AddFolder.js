@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AddFolder = ({ parent, setAddStatus }) => {
+const AddFolder = ({ parent, setAddStatus, handleAddFolder }) => {
     const cancelCreate = () => {
         setAddStatus(false);
     }
@@ -8,19 +8,8 @@ const AddFolder = ({ parent, setAddStatus }) => {
     const handleInput = (e) => {
         setFolderName(e.target.value)
     }
-    const addFolder = () => {
-        alert(`creating folder in ${parent._id}`)
-        fetch(`http://localhost:1606/addfolder/${parent._id}`, {
-            method: 'POST',
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({ name: folderName })
-        })
-            .then(result => result.json())
-            .then(res => {
-                if (res) {
-                    window.location.reload()
-                }
-            })
+    const handleAdd = () => {
+        handleAddFolder(parent, folderName)
     }
     return (
         <div className='modal-area'>
@@ -29,7 +18,7 @@ const AddFolder = ({ parent, setAddStatus }) => {
                 <input type="text" onChange={handleInput} placeholder='folder name' />
                 <div className="btn">
                     <button onClick={cancelCreate}>Cancel</button>
-                    <button onClick={addFolder}>Create</button>
+                    <button onClick={handleAdd}>Create</button>
                 </div>
             </div>
         </div>

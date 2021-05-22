@@ -1,13 +1,10 @@
 import React from 'react';
 
 const DeleteFolder = ({ deleteOne, setDeleteStatus, folderData, parent }) => {
-    console.log(folderData)
     const cancelDelete = () => {
         setDeleteStatus(false)
     }
     const handleDelete = () => {
-        // alert(`deleting folder from ${parent}`)
-        // console.log(parent, folderData._id)
         deleteOne(parent, folderData._id)
         setDeleteStatus(false)
     }

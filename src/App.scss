@@ -11,15 +11,19 @@
 .folder {
   padding: 1em 2em;
   cursor: pointer;
+  button {
+    margin-left: 1em;
+  }
+  span {
+    margin-left: 1em;
+    padding: 5px 10px;
+  }
 }
 .no-folder {
   padding: 0 3em;
   margin: 0;
 }
-.folder span,
-.folder button {
-  margin-left: 1em;
-}
+
 .modal-area {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.4);
@@ -50,11 +54,10 @@
       border: 1px solid rgba(0, 0, 0, 0.4);
       cursor: pointer;
     }
+    button + button {
+      margin-right: 1em;
+    }
   }
-}
-
-button + button {
-  margin-right: 1em;
 }
 
 .arrow-left::before {

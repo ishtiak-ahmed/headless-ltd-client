@@ -9,8 +9,8 @@ const Folder = ({ id, parentId }) => {
     const toggleFolder = () => {
         setShowChild(!showChild)
     }
-    // const [children, setChildren] = useState([])
     const [folderData, setFolderData] = useState({})
+    // Load Folder Data from Server
     useEffect(() => {
         fetch(`https://tree-folder-structure.herokuapp.com/folder/${id}`)
             .then(res => res.json())
@@ -18,12 +18,14 @@ const Folder = ({ id, parentId }) => {
     }, [id])
 
     // Handler Function
-    const addFolder = () => {
+    const showAdd = () => {
         setAddStaus(true)
     };
-    const deleteFolder = () => {
+    const showDelete = () => {
         setDeleteStatus(true)
     }
+
+    // Parent Update Method
     const updateParent = (parent) => {
         fetch(`https://tree-folder-structure.herokuapp.com/folder/${parent}`)
             .then(res => res.json())
@@ -45,6 +47,7 @@ const Folder = ({ id, parentId }) => {
                     })
             })
     }
+    // Delete Folder
     const deleteOne = (parent, id) => {
         const uri = `https://tree-folder-structure.herokuapp.com/delete/${id}`;
         fetch(uri, { method: "DELETE" })
@@ -58,6 +61,44 @@ const Folder = ({ id, parentId }) => {
                 )
             })
     }
+
+    // Add Parent REFERENCE
+    const addParentReference = (parent, child) => {
+        fetch(`https://tree-folder-structure.herokuapp.com/folder/${parent}`)
+            .then(res => res.json())
+            .then(data => {
+                const childs = data.children;
+                const newChilds = [...childs, child]
+                fetch(`https://tree-folder-structure.herokuapp.com/updateparent/${parent}`, {
+                    method: 'PATCH',
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({ childs: newChilds })
+                })
+                    .then(response => response.json())
+                    .then(res => {
+                        if (res) {
+                            window.location.reload()
+                        } else {
+                            alert('something went wrong')
+                        }
+                    })
+            })
+    }
+    // Add folder
+    const addFolder = (parent, folderName) => {
+        fetch(`https://tree-folder-structure.herokuapp.com/addfolder/${parent._id}`, {
+            method: 'POST',
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ name: folderName })
+        })
+            .then(result => result.json())
+            .then(res => {
+                if (res) {
+                    const child = `${parent._id}-${folderName}`
+                    addParentReference(parent._id, child)
+                }
+            })
+    }
     return (
         <div className='folder-area'>
             <div className="folder">
@@ -65,10 +106,10 @@ const Folder = ({ id, parentId }) => {
                 <span onClick={toggleFolder}>{folderData.name}</span>
                 {
                     folderData.name !== 'Root' ?
-                        <button onClick={deleteFolder}>X</button>
+                        <button onClick={showDelete}>X</button>
                         : <></>
                 }
-                <button onClick={addFolder}>+ Add</button>
+                <button onClick={showAdd}>+ Add</button>
                 {
                     showChild ?
                         <div className="folder">
@@ -84,7 +125,7 @@ const Folder = ({ id, parentId }) => {
             </div>
             {
                 addStatus ?
-                    <AddFolder setAddStatus={setAddStaus} parent={folderData}></AddFolder>
+                    <AddFolder setAddStatus={setAddStaus} parent={folderData} handleAddFolder={addFolder}></AddFolder>
                     : <></>
             }
             {

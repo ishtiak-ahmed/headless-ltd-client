@@ -23,9 +23,9 @@
     [x] Database connection
     [x] Add Modal
     [x] Delete Modal
-    [ ] Insert to database
-            * Child item added
-            x Need to add reference to parent with patch method
+    [x] Insert to database
+            [x] Child item added
+            [x] Need to add reference to parent with patch method
     [x] Delete from collection
             [x] Have to clear from ui
             [x] Remove Children Reference from Parent
