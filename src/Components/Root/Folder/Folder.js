@@ -105,7 +105,7 @@ const Folder = ({ id, parentId }) => {
                 <span>{showChild ? <span className='arrow-down'></span> : <span className='arrow-left'></span>}</span>
                 <span onClick={toggleFolder}>{folderData.name}</span>
                 {
-                    folderData.name !== 'Root' ?
+                    folderData.id !== 'root' ?
                         <button onClick={showDelete}>X</button>
                         : <></>
                 }
